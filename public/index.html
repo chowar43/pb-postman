@@ -112,18 +112,14 @@
         var dataSource = {
                 datasets: [
                     {
-                        data: [],
-                        backgroundColor: [
-                            '#ffcd56',
-                            '#ff6384',
-                            '#36a2eb',
-                            '#fd6b19',
-                        ]
+                        name: [],
+                        value: [],
+                        backgroundColor: []
                     }
                 ],
                 labels: []
-            };
-
+            
+         };
         function createChart() {
             var ctx = document.getElementById('myChart').getContext('2d');
             var myPieChart = new Chart(ctx, {
@@ -136,14 +132,16 @@
             axios.get('http://localhost:3000/budget')
             .then(function (res) {
                 for (var i = 0; i < res.data.myBudget.length; i++) {
-                    dataSource.datasets[0].data[i] = res.data.myBudget[i].budget;
-                    dataSource.labels[i] = res.data.myBudget[i].title;
+                    dataSource.datasets[0].name[i] = res.data.data[i].name;
+                    dataSource.datasets[0].value[i] = res.data.data[i].value;
+                    dataSource.datasets[0].backgroundcolor[i] = res.data.data[i].backgroundcolor;
+                    //dataSource.labels[i] = res.data.myBudget[i].title;
                     createChart();
                 }
             });
         }
-
         getBudget();
+    
     </script>
 
 </body>
